@@ -37,8 +37,8 @@ jobs:
       uses: azure/aks-set-context@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        cluster-name: yourClusterName
-        resource-group: yourResourceGroupName
+        cluster-name: 'fast-api'
+        resource-group: 'terraform-test'
     - name: Deploy to AKS
       run: |
         helm upgrade --install fastapi-app ./charts/fastapi-app --set image.tag=${{ github.sha }}
