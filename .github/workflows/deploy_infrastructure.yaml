@@ -38,7 +38,7 @@ jobs:
       run: curl http://localhost:8000/health
 
     - name: Run PyTest
-      run: docker exec api_app pytest /var/fast-api/tests
+      run: docker exec api_app pytest /app/tests
 
     - name: Stop Docker container
       run: docker stop api_app
