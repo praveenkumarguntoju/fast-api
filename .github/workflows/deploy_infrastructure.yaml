@@ -21,10 +21,31 @@ jobs:
         login-server: ${{ secrets.ACR_SERVER }}
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
-    - name: Build and push Docker image
+
+    - name: Build Docker image
       run: |
-        docker build . -t ${{ secrets.ACR_SERVER }}/fastapi-app:${{ github.sha }}
-        docker push ${{ secrets.ACR_SERVER }}/fastapi-app:${{ github.sha }}
+         docker build . -t ${{ secrets.ACR_SERVER }}/fastapi-app:${{ github.sha }}
+    
+    - name: Run Docker Image
+      run: docker run -d -p 8000:8000 --name api-app ${{ secrets.ACR_LOGIN_SERVER }}/fastapi-app:${{ github.sha }}
+
+    - name: Wait for API to start
+      uses: jakejarvis/wait-action@master
+      with:
+        time: 15s
+
+    - name: Check FastAPI health
+      run: curl http://localhost:8000/health
+
+    - name: Run PyTest
+      run: docker exec api_app pytest /var/fast-api/tests
+
+    - name: Stop Docker container
+      run: docker stop api_app
+
+    - name: push Docker image
+      run: |
+         docker push ${{ secrets.ACR_SERVER }}/fastapi-app:${{ github.sha }}
 
   deploy:
     needs: build-and-push
