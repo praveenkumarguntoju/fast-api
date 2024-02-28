@@ -27,7 +27,7 @@ jobs:
          docker build . -t ${{ secrets.ACR_SERVER }}/fastapi-app:${{ github.sha }}
     
     - name: Run Docker Image
-      run: docker run -d -p 8000:8000 --name api-app ${{ secrets.ACR_LOGIN_SERVER }}/fastapi-app:${{ github.sha }}
+      run: docker run -d -p 8000:8000 --name api-app fastapiacrtest.azurecr.io/fastapi-app:${{ github.sha }}
 
     - name: Wait for API to start
       uses: jakejarvis/wait-action@master
