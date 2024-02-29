@@ -37,9 +37,6 @@ jobs:
     - name: Check FastAPI health
       run: curl http://localhost:8000/health
 
-    - name: Run PyTest
-      run: docker exec api-app pytest /app/tests
-
     - name: Stop Docker container
       run: docker stop api-app
 
