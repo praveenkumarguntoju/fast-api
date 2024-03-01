@@ -40,6 +40,7 @@ jobs:
 
     - name: Stop Docker container
       run: docker stop api-app
+      
 
     - name: push Docker image
       run: |
