@@ -12,7 +12,9 @@ permissions:
 
 jobs:
   build-and-push:
-    runs-on: mac-os
+    runs-on: 
+        - mac-os
+        - self-hosted
     steps:
     - uses: actions/checkout@v2
     - name: Log in to Azure Container Registry
