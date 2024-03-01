@@ -22,7 +22,6 @@ jobs:
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
 
-
     - name: Build Docker image
       run: |
          docker build . -t ${{ secrets.ACR_SERVER }}/fastapi-app:${{ github.sha }}
