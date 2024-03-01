@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build-and-push:
-    runs-on: self-hosted
+    runs-on: mac-os
     steps:
     - uses: actions/checkout@v2
     - name: Log in to Azure Container Registry
@@ -47,7 +47,7 @@ jobs:
 
   deploy:
     needs: build-and-push
-    runs-on: ubuntu-latest
+    runs-on: mac-os
     steps:
     - uses: actions/checkout@v2
     - name: Install Helm
